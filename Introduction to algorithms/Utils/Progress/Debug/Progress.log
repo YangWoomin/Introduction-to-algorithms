@@ -1,0 +1,5 @@
+﻿  Progress.cpp
+  ProgressManager.cpp
+C:\Users\for\Documents\GitHub\Introduction-to-algorithms\Introduction to algorithms\Utils\Progress\ProgressManager.cpp(71,22): error C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Work.cpp
+  Generating Code...
