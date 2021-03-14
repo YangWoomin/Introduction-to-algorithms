@@ -26,6 +26,13 @@ protected:
 		}
 	}
 
+	void exchange(Element& element1, Element& element2)
+	{
+		Element temp = element1;
+		element1 = element2;
+		element2 = temp;
+	}
+
 public:
 	Heap()
 	{
@@ -53,15 +60,18 @@ public:
 		}
 		if (idx != target)
 		{
-			Element temp = _elements[idx];
-			_elements[idx] = _elements[target];
-			_elements[target] = temp;
+			exchange(_elements[idx], _elements[target]);
 			Heapify(target, last);
 		}
 	}
 
 	void Build()
 	{
+		if (1 >= _elements.size())
+		{
+			return;
+		}
+
 		const std::size_t n = _elements.size() - 1;
 		std::size_t idx = _elements.size() / 2 - 1;
 		while (0 <= idx)

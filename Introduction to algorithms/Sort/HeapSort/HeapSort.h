@@ -12,7 +12,7 @@ template <typename Type, bool Desc = false>
 class HeapSort : public Heap<Type, !Desc>
 {
 private:
-	typedef Heap<Type> Super;
+	typedef Heap<Type, !Desc> Super;
 
 public:
 	typedef Type (*FnRandomGenerator)(Type, Type);
@@ -31,12 +31,15 @@ public:
 
 	void Sort()
 	{
+		if (1 >= Super::_elements.size())
+		{
+			return;
+		}
+
 		std::size_t n = Super::_elements.size() - 1;
 		while (0 < n)
 		{
-			Type temp = Super::_elements[n];
-			Super::_elements[n] = Super::_elements[0];
-			Super::_elements[0] = temp;
+			Super::exchange(Super::_elements[0], Super::_elements[n]);
 			n--;
 			Super::Heapify(0, n);
 		}
