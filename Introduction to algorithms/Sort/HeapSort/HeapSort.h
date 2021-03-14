@@ -2,14 +2,15 @@
 
 #include <iostream>
 #include <iomanip>
+#include <array>
 
 #include "../../Common/Heap/Heap.h"
 
 /*
-	HeapSort sorts elements
+	Heapsort sorts elements
 */
 template <typename Type, bool Desc = false>
-class HeapSort : public Heap<Type, !Desc>
+class Heapsort : public Heap<Type, !Desc>
 {
 private:
 	typedef Heap<Type, !Desc> Super;
@@ -19,7 +20,7 @@ public:
 
 public:
 	// make a heap with random n-elements
-	HeapSort(std::size_t n, Type min, Type max, FnRandomGenerator generator)
+	Heapsort(std::size_t n, Type min, Type max, FnRandomGenerator generator)
 	{
 		for (std::size_t i = 0; i < n; ++i)
 		{
@@ -27,7 +28,19 @@ public:
 		}
 	}
 
-	HeapSort() = default;
+	// make a heap by an array, which is filled with elements of Type in arbitrary order
+	Heapsort(Type* array, std::size_t n)
+	{
+		Super::_elements.assign(array, array + n);
+	}
+
+	template <std::size_t Size>
+	Heapsort(std::array<Type, Size>& array)
+	{
+		Super::_elements.assign(array.begin(), array.end());
+	}
+
+	Heapsort() = default;
 
 	void Sort()
 	{
