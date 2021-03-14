@@ -3,7 +3,7 @@
 #include <vector>
 
 /*
-	If there is no definition of comparison operator(<,>) in Element, 
+	If there is no definition of comparison operator(<=,>=) in Element, 
 	you should define comparison operator of that type.
 	And you should also define assignment operator(=) because they can need to be exchanged.
 */
