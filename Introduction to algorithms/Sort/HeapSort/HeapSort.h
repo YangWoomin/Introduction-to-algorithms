@@ -36,19 +36,19 @@ public:
 			return;
 		}
 
-		std::size_t n = Super::_elements.size() - 1;
-		while (0 < n)
+		std::size_t size = Super::_elements.size();
+		while (1 < size)
 		{
-			Super::exchange(Super::_elements[0], Super::_elements[n]);
-			n--;
-			Super::Heapify(0, n);
+			Super::exchange(Super::_elements[0], Super::_elements[size - 1]);
+			size--;
+			Super::Heapify(0, size);
 		}
 	}
 
 	bool Validate()
 	{
-		const std::size_t n = Super::_elements.size();
-		for (std::size_t i = 1; i < n; ++i)
+		const std::size_t size = Super::_elements.size();
+		for (std::size_t i = 1; i < size; ++i)
 		{
 			if (!Super::compare<Desc>(Super::_elements[i - 1], Super::_elements[i]))
 			{
@@ -63,8 +63,8 @@ public:
 	{
 		std::cout << "** Heapsort elements start **" << std::endl;
 
-		const std::size_t n = Super::_elements.size();
-		for (std::size_t i = 0; i < n; ++i)
+		const std::size_t size = Super::_elements.size();
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			std::cout << "[" << std::setw(width) << i << "] : " << Super::_elements[i] << std::endl;
 		}

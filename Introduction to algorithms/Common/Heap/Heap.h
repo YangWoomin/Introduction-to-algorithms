@@ -45,23 +45,23 @@ public:
 
 	}
 
-	void Heapify(std::size_t idx, std::size_t last)
+	void Heapify(std::size_t idx, std::size_t size)
 	{
 		std::size_t target = idx;
 		std::size_t left = idx * 2 + 1;
-		std::size_t right = idx * 2 + 2;
-		if (last >= left && !compare<Desc>(_elements[idx], _elements[left]))
+		std::size_t right = (idx + 1) * 2;
+		if (size > left && !compare<Desc>(_elements[idx], _elements[left]))
 		{
 			target = left;
 		}
-		if (last >= right && !compare<Desc>(_elements[target], _elements[right]))
+		if (size > right && !compare<Desc>(_elements[target], _elements[right]))
 		{
 			target = right;
 		}
 		if (idx != target)
 		{
 			exchange(_elements[idx], _elements[target]);
-			Heapify(target, last);
+			Heapify(target, size);
 		}
 	}
 
@@ -72,11 +72,11 @@ public:
 			return;
 		}
 
-		const std::size_t n = _elements.size() - 1;
-		std::size_t idx = _elements.size() / 2 - 1;
+		const std::size_t size = _elements.size();
+		std::size_t idx = size / 2 - 1;
 		while (0 <= idx)
 		{
-			Heapify(idx, n);
+			Heapify(idx, size);
 
 			// for preventing underflow of std::size_t
 			if (0 == idx)
