@@ -62,7 +62,7 @@ public:
 		
 	}
 
-	void Heapify(std::size_t idx, std::size_t size)
+	void HeapifyDownward(std::size_t idx, std::size_t size)
 	{
 		std::size_t target = idx;
 		std::size_t left = leftChild(idx);
@@ -78,7 +78,18 @@ public:
 		if (idx != target)
 		{
 			exchange(idx, target);
-			Heapify(target, size);
+			HeapifyDownward(target, size);
+		}
+	}
+
+	void HeapifyUpward(std::size_t idx)
+	{
+		std::size_t pidx = parent(idx);
+		while (1 <= idx && false == validate<Desc>(pidx, idx))
+		{
+			exchange(idx, pidx);
+			idx = pidx;
+			pidx = parent(idx);
 		}
 	}
 
@@ -93,7 +104,7 @@ public:
 		std::size_t idx = size / 2 - 1;
 		while (0 <= idx)
 		{
-			Heapify(idx, size);
+			HeapifyDownward(idx, size);
 
 			// for preventing underflow of std::size_t
 			if (0 == idx)

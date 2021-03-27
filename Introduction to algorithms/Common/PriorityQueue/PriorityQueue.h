@@ -8,18 +8,6 @@ class PriorityQueue : public Heap<Element, Desc>
 private:
 	typedef Heap<Element, Desc> Super;
 
-protected:
-	void heapifyUpward(std::size_t idx)
-	{
-		std::size_t pidx = Super::parent(idx);
-		while (1 <= idx && false == Super::validate<Desc>(pidx, idx))
-		{
-			Super::exchange(idx, pidx);
-			idx = pidx;
-			pidx = Super::parent(idx);
-		}
-	}
-
 public:
 	// how do I let a user know what is the element the user wants to find?
 	bool Update(const Element& element)
@@ -30,7 +18,7 @@ public:
 	void Insert(Element& element)
 	{
 		Super::_elements.push_back(element);
-		heapifyUpward(Super::_elements.size() - 1);
+		Super::HeapifyUpward(Super::_elements.size() - 1);
 	}
 
 	bool Extract(Element& element)
@@ -44,7 +32,7 @@ public:
 		element = Super::_elements[0];
 		Super::exchange(0, size - 1);
 		Super::_elements.pop_back();
-		Super::Heapify(0, size - 1);
+		Super::HeapifyDownward(0, size - 1);
 
 		return true;
 	}

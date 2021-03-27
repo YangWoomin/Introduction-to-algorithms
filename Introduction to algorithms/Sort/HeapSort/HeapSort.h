@@ -54,7 +54,7 @@ public:
 		{
 			Super::exchange(0, size - 1);
 			size--;
-			Super::Heapify(0, size);
+			Super::HeapifyDownward(0, size);
 		}
 	}
 
