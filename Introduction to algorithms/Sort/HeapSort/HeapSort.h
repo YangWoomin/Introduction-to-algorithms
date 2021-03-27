@@ -52,7 +52,7 @@ public:
 		std::size_t size = Super::_elements.size();
 		while (1 < size)
 		{
-			Super::exchange(Super::_elements[0], Super::_elements[size - 1]);
+			Super::exchange(0, size - 1);
 			size--;
 			Super::Heapify(0, size);
 		}
@@ -63,7 +63,7 @@ public:
 		const std::size_t size = Super::_elements.size();
 		for (std::size_t i = 1; i < size; ++i)
 		{
-			if (!Super::compare<Desc>(Super::_elements[i - 1], Super::_elements[i]))
+			if (false == Super::validate<Desc>(i - 1, i))
 			{
 				return false;
 			}

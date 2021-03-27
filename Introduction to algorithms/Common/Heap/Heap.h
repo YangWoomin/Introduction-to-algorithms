@@ -13,54 +13,71 @@ class Heap
 protected:
 	std::vector<Element> _elements;
 
-	template <bool Desc>
-	bool compare(Element resident, Element challenger)
+	template<bool Desc>
+	bool validate(std::size_t idx1, std::size_t idx2)
 	{
 		if (Desc)
 		{
-			return resident >= challenger;
+			return _elements[idx1] >= _elements[idx2];
 		}
 		else
 		{
-			return resident <= challenger;
+			return _elements[idx1] <= _elements[idx2];
 		}
 	}
 
-	void exchange(Element& element1, Element& element2)
+	void exchange(std::size_t idx1, std::size_t idx2)
 	{
-		Element temp = element1;
-		element1 = element2;
-		element2 = temp;
+		Element temp = _elements[idx1];
+		_elements[idx1] = _elements[idx2];
+		_elements[idx2] = temp;
+	}
+
+	std::size_t parent(std::size_t idx)
+	{
+		if (1 < idx)
+		{
+			return (idx - 1) / 2;
+		}
+
+		return 0;
+	}
+
+	std::size_t leftChild(std::size_t idx)
+	{
+		return idx * 2 + 1;
+	}
+
+	std::size_t rightChild(std::size_t idx)
+	{
+		return (idx + 1) * 2;
 	}
 
 public:
-	Heap()
-	{
-
-	}
+	Heap() = default;
 
 	Heap(std::vector<Element>& other)
 		: _elements(other)
 	{
-
+		
 	}
 
 	void Heapify(std::size_t idx, std::size_t size)
 	{
 		std::size_t target = idx;
-		std::size_t left = idx * 2 + 1;
-		std::size_t right = (idx + 1) * 2;
-		if (size > left && !compare<Desc>(_elements[idx], _elements[left]))
+		std::size_t left = leftChild(idx);
+		std::size_t right = rightChild(idx);
+		if (size > left && false == validate<Desc>(idx, left))
 		{
 			target = left;
 		}
-		if (size > right && !compare<Desc>(_elements[target], _elements[right]))
+		if (size > right && false == validate<Desc>(target, right))
 		{
 			target = right;
 		}
 		if (idx != target)
 		{
-			exchange(_elements[idx], _elements[target]);
+			exchange(idx, target);
 			Heapify(target, size);
 		}
 	}
